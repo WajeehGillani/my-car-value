@@ -1,0 +1,47 @@
+### Create a new user
+POST http://localhost:3000/auth/signup
+content-type: application/json
+
+{
+  "email": "test@gmail.com",
+  "password": "test123"
+}
+
+### SignIn user
+POST http://localhost:3000/auth/signin
+content-type: application/json
+
+{
+  "email": "john@gmail.com",
+  "password": "test123"
+}
+
+### WhoIam 
+
+GET http://localhost:3000/auth/whoiam
+
+
+### SignOut
+
+POST http://localhost:3000/auth/signout
+
+### Find User with specific ID
+
+GET http://localhost:3000/auth/3
+
+### Find All User with sam email
+
+GET http://localhost:3000/auth?email=asdf@asdf.com
+
+### Remove specific User
+
+DELETE  http://localhost:3000/auth/2
+
+### Update Specific User
+
+PATCH http://localhost:3000/auth/3
+Content-Type: application/json
+
+{
+  "email":"hello@gmail.com"
+}
