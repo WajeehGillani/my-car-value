@@ -9,14 +9,30 @@ import { User } from './users/user.entity';
 
 import { ReportsModule } from './reports/reports.module';
 import { Report } from './reports/report.entity';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+
+const envMap = {
+  qa: 'qa',
+  development: 'dev',
+  production: 'pro',
+};
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'db.sqlite',
-      entities: [User, Report],
-      synchronize: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.${envMap[process.env.NODE_ENV] || 'development'}`,
+    }),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        return {
+          type: 'sqlite',
+          database: config.get<string>('DB_NAME'),
+          entities: [User, Report],
+          synchronize: true,
+        };
+      },
     }),
     UsersModule,
     ReportsModule,
