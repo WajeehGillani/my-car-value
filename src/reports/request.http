@@ -1,0 +1,22 @@
+### Create a new report
+POST http://localhost:3000/reports
+content-type: application/json
+
+{
+ "make": "suzuki",
+ "model": "mehran",
+ "year": 2010,
+ "mileage": 8000,
+ "lng": 0,
+ "lat": 0,
+ "price": 90000 
+}
+
+### Update Approval request
+
+PATCH http://localhost:3000/reports/7
+Content-Type: application/json
+
+{
+    "approved": true
+}
