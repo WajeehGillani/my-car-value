@@ -11,11 +11,17 @@ import { ReportsModule } from './reports/reports.module';
 import { Report } from './reports/report.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
+const envMap = {
+  qa: 'qa',
+  development: 'dev',
+  production: 'pro',
+};
+
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV}`,
+      envFilePath: `.env.${envMap[process.env.NODE_ENV] || 'development'}`,
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
