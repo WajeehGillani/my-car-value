@@ -20,9 +20,12 @@ export class User {
   @Column()
   password: string;
 
+  @Column({ default: true })
+  admin: boolean;
+
   @OneToMany(() => Report, (report) => report.user)
   report: Report[];
- 
+
   @AfterInsert()
   logInsert() {
     console.log('New user added with id: ', this.id);
